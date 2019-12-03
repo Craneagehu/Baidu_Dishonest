@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.5
+DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -54,7 +54,9 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    #'DisHonest.middlewares.DishonestDownloaderMiddleware': 543,
-   'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware':400  #一行代码实现随机user-agent
+   'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware':400,  #一行代码实现随机user-agent
+    'DisHonest.middlewares.ProxyMiddleware':401,
+    'DisHonest.middlewares.GsxtCookMiddleware':100,
 }
 
 # Enable or disable extensions
@@ -96,4 +98,28 @@ MYSQL_HOST = '127.0.0.1'
 MYSQL_PORT = 3306
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = '123456'
-MYSQL_DB = 'baidu_dishonest'
+MYSQL_DB = 'dishonest'
+
+# 配置代理ip
+PROXY = {
+    "http":"http://192.144.191.242:80",
+    "https":"https://192.144.191.242:80"
+}
+
+# 配置Redis的URL
+REDIS_URL = 'redis://127.0.0.1:6379/0'
+
+# 配置Redis字典中相关键
+# cookie键
+COOKIES_KEY = 'cookies'
+# user-agent的键
+COOKIE_USER_AGENT_KEY = 'user_agent'
+# 代理IP的键
+COOKIES_PROXY_KEY = 'proxy'
+
+# 配置Cookie字典在Redis数据库中的键
+REDIS_COOKIES_KEY = 'redis_cookies'
+
+
+
+

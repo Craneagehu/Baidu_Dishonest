@@ -23,6 +23,12 @@ class DishonestPipeline(object):
 
         else:
             #否则就是自然人
+            #为了不与百度失信爬虫的身份证号重复，故对最高人民法院爬虫的身份证号进行处理
+            #如果身份证号为18位，则出生月份和天数用*号代替
+            card_num = item["card_num"]
+            if len(card_num) ==18:
+                card_num = card_num[:-8]+"****"+card_num[-4:]
+                item["card_num"] = card_num
             select_count_sql = f'select count(1) from dishonest where card_num = "{item["card_num"]}"'
 
 
